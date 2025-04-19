@@ -1,0 +1,36 @@
+service: rails-app
+image: dmytro-strukov/rails-app
+
+servers:
+  web:
+    - 192.168.0.1
+
+proxy:
+  ssl: false
+
+registry:
+  server: ghcr.io
+  username: dmytro-strukov
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+accessories:
+  db:
+    image: postgres:15
+    host: 192.168.0.1
+    port: "127.0.0.1:5432:5432"
+    env:
+      clear:
+        POSTGRES_USER: postgres
+      secret:
+        - POSTGRES_PASSWORD
+    directories:
+      - data:/var/lib/postgresql/data
+
+builder:
+  arch: amd64
+
+env:
+  secret:
+    - RAILS_MASTER_KEY
+    - POSTGRES_PASSWORD
