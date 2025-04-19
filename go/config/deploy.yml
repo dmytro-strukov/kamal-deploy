@@ -1,0 +1,21 @@
+service: goapp
+
+image: dmytro-strukov/goapp
+
+servers:
+  web:
+    - 172.233.59.83
+
+proxy:
+  ssl: false
+
+registry:
+  server: ghcr.io
+  username: dmytro-strukov
+
+  password:
+    - KAMAL_REGISTRY_PASSWORD
+
+builder:
+  arch: amd64
+
